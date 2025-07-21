@@ -88,7 +88,7 @@ export default function App() {
     const finalizeProcess = async () => {
       if (isDataReady && isInstallConversionDone) {
         await generateLink(); // Викликати generateLink, коли всі дані готові
-        //console.log('Фінальна лінка сформована!');
+        console.log('Фінальна лінка сформована!');
       }
     };
   
@@ -109,7 +109,7 @@ export default function App() {
         1000000 + Math.random() * 9000000,
       )}`;
       setTimeStampUserId(timestamp_user_id);
-      //console.log('timeStampUserId==========+>', timeStampUserId);
+      console.log('timeStampUserId==========+>', timeStampUserId);
   
       // Зберігаємо таймштамп у AsyncStorage
       await AsyncStorage.setItem('timeStampUserId', timestamp_user_id);
@@ -118,7 +118,7 @@ export default function App() {
         `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=uniq_visit&jthrhg=${timestamp_user_id}`,
       );
       OneSignal.User.addTag('timestamp_user_id', timestamp_user_id);
-      //console.log('унікальний візит!!!');
+      console.log('унікальний візит!!!');
       setUniqVisit(false);
       await AsyncStorage.setItem('uniqVisitStatus', 'sent');
   
@@ -126,7 +126,7 @@ export default function App() {
     } else {
       if (storedTimeStampUserId) {
         setTimeStampUserId(storedTimeStampUserId);
-        //console.log('Відновлений timeStampUserId:', storedTimeStampUserId);
+        console.log('Відновлений timeStampUserId:', storedTimeStampUserId);
       }
     }
   };
@@ -136,7 +136,7 @@ export default function App() {
       const jsonData = await AsyncStorage.getItem('App');
       if (jsonData !== null) {
         const parsedData = JSON.parse(jsonData);
-        //console.log('Дані дістаються в AsyncStorage');
+        console.log('Дані дістаються в AsyncStorage');
         //console.log('parsedData in App==>', parsedData);
         //setAddPartToLinkOnce(parsedData.addPartToLinkOnce);
         setRoute(parsedData.route);
@@ -170,7 +170,7 @@ export default function App() {
         ]);
   
         // Результати виконаних функцій
-        //console.log('Результати функцій:', results);
+        console.log('Результати функцій:', results);
   
         // Додаткові операції
         // onInstallConversionDataCanceller();
@@ -204,9 +204,9 @@ export default function App() {
       };
       const jsonData = JSON.stringify(data);
       await AsyncStorage.setItem('App', jsonData);
-      //console.log('Дані збережено в AsyncStorage');
+      console.log('Дані збережено в AsyncStorage');
     } catch (e) {
-      //console.log('Помилка збереження даних:', e);
+      console.log('Помилка збереження даних:', e);
     }
   };
   
@@ -252,12 +252,12 @@ export default function App() {
       // Вывод значений в консоль
       //Alert.alert(`sab1: ${sab1}`);
       //Alert.alert(`Attribution: ${attribution}`);
-      //console.log(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
+      console.log(`Attribution: ${attribution}` + `KeywordId:${keywordId}`);
     } catch (error) {
       const { message } = error;
       //Alert.alert(message); // --> Some error message
     } finally {
-      //console.log('Attribution');
+      console.log('Attribution');
     }
   };
   
@@ -407,7 +407,7 @@ export default function App() {
       });
   
       appsFlyer.startSdk();
-      //console.log('StartAppsFly');
+      console.log('StartAppsFly');
     } catch (error) {
       console.log(
         'App.js Помилка під час виконання операцій AppsFlyer:',
@@ -446,14 +446,14 @@ export default function App() {
   
       appsFlyer.startSdk();
   
-      //console.log('App.js AppsFlyer ініціалізовано успішно');
+      console.log('App.js AppsFlyer ініціалізовано успішно');
       //Alert.alert('App.js AppsFlyer ініціалізовано успішно');
       // Отримуємо idfv та встановлюємо його як customerUserID
       const uniqueId = await DeviceInfo.getUniqueId();
       setIdfv(uniqueId); // Зберігаємо idfv у стейті
   
       appsFlyer.setCustomerUserId(uniqueId, res => {
-        //console.log('Customer User ID встановлено успішно:', uniqueId);
+        console.log('Customer User ID встановлено успішно:', uniqueId);
         setCustomerUserId(uniqueId); // Зберігаємо customerUserID у стейті
       });
     } catch (error) {
@@ -487,12 +487,12 @@ export default function App() {
           setAppsUid(appsFlyerUID);
         } else if (attempts < maxRetries) {
           attempts++;
-          //console.warn(
-          //  `AppsFlyerUID is null, retrying ${attempts}/${maxRetries}...`,
-          //);
+          console.log(
+            `AppsFlyerUID is null, retrying ${attempts}/${maxRetries}...`,
+          );
           setTimeout(fetchUid, 1000); // Повторна спроба через 1 сек.
         } else {
-          //console.error('Failed to retrieve AppsFlyerUID after 5 attempts');
+          console.error('Failed to retrieve AppsFlyerUID after 5 attempts');
         }
       } catch (error) {
         if (attempts < maxRetries) {
@@ -527,13 +527,13 @@ export default function App() {
             setCheckApsData(JSON.stringify(res.data));
           } else if (res.data.af_status === 'Organic') {
             //await fetchAdServicesAttributionData();
-            //console.log('Organic');
+            console.log('Organic');
           }
         } else {
-          //console.log('This is not first launch');
+          console.log('This is not first launch');
         }
       } catch (error) {
-        //console.log('Error processing install conversion data:', error);
+        console.log('Error processing install conversion data:', error);
       } finally {
         // Змінюємо флаг на true після виконання
         setIsInstallConversionDone(true);
@@ -554,7 +554,7 @@ export default function App() {
         //console.log('aceptTransperency', aceptTransperency);
         console.log('ЗГОДА!!!!!!!!!');
       } else {
-        //console.log('Ad tracking is limited');
+        console.log('Ad tracking is limited');
         setIdfa('00000000-0000-0000-0000-000000000000'); //true
         //setIdfa(null);
         fetchIdfa();
@@ -601,7 +601,7 @@ export default function App() {
             }
           })
           .catch(e => {
-            //console.log('errar', e);
+            console.log('errar', e);
             setRoute(false);
           });
       }
@@ -615,11 +615,11 @@ export default function App() {
       console.log('Створення базової частини лінки');
       const baseUrl = [
         `${INITIAL_URL}${URL_IDENTIFAIRE}?${URL_IDENTIFAIRE}=1`,
-        idfa && `idfa=${idfa}`,
-        appsUid && `uid=${appsUid}`,
-        customerUserId && `customerUserId=${customerUserId}`,
-        idfv && `idfv=${idfv}`,
-        oneSignalId && `oneSignalId=${oneSignalId}`,
+        idfa ? `idfa=${idfa}` : '',
+        appsUid ? `uid=${appsUid}` : '',
+        customerUserId ? `customerUserId=${customerUserId}` : '',
+        idfv ? `idfv=${idfv}` : '',
+        oneSignalId ? `oneSignalId=${oneSignalId}` : '',
         `jthrhg=${timeStampUserId}`,
       ]
         .filter(Boolean)
@@ -629,7 +629,7 @@ export default function App() {
       let additionalParams = '';
       if (sab1) {
         if (sab1.includes('_')) {
-          //console.log('Якщо sab1 містить "_", розбиваємо і формуємо subId');
+          console.log('Якщо sab1 містить "_", розбиваємо і формуємо subId');
           // Якщо sab1 містить "_", розбиваємо і формуємо subId
           let sabParts = sab1.split('_');
           additionalParams =
@@ -637,24 +637,24 @@ export default function App() {
               .map((part, index) => `subId${index + 1}=${part}`)
               .join('&') + `&checkData=${checkApsData}`;
         } else {
-          //console.log('Якщо sab1 не містить "_", встановлюємо subId1=sab1');
+          console.log('Якщо sab1 не містить "_", встановлюємо subId1=sab1');
           //// Якщо sab1 не містить "_", встановлюємо subId1=sab1
           additionalParams = `checkData=${checkApsData}`;
         }
       } else {
-        //console.log(
-        //  'Якщо sab1 undefined або пустий, встановлюємо subId1=atribParam',
-        //);
+        console.log(
+          'Якщо sab1 undefined або пустий, встановлюємо subId1=atribParam',
+        );
         // Якщо sab1 undefined або пустий, встановлюємо subId1=atribParam
         additionalParams = `${atribParam ? `subId1=${atribParam}` : ''
           }&checkData=${checkAsaData}`;
       }
-      //console.log('additionalParams====>', additionalParams);
+      console.log('additionalParams====>', additionalParams);
       // Формування фінального лінку
       const product = `${baseUrl}&${additionalParams}${pushOpenWebview ? `&yhugh=${pushOpenWebview}` : ''
         }`;
       //(!addPartToLinkOnce ? `&yhugh=true` : ''); pushOpenWebview && '&yhugh=true'
-      //console.log('Фінальна лінка сформована');
+      console.log('Фінальна лінка сформована');
   
       // Зберігаємо лінк в стейт
       setFinalLink(product);
